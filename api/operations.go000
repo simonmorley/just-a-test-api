@@ -1,0 +1,51 @@
+package api
+
+func ListOperations(c *gin.Context) {
+	projectID := c.MustGet("ProjectID").(int)
+	deviceID := c.Query("device_id")
+
+	if deviceID != "" {
+		did, _ := strconv.Atoi(deviceID)
+
+		// db.FindDevice
+
+		// db.FindOPeration
+
+		// this way
+		// d, err := m.FindDevice(did, projectID)
+		// if err == nil {
+		// 	ops, err := m.DeviceOperations(d.Id)
+		// 	if err == nil && len(ops) > 0 {
+		// 		o := formatOperationIndex(ops)
+		// 		listObj := ListObjectOperation{
+		// 			Object: "operation",
+		// 			Data:   o,
+		// 		}
+		// 		c.JSON(200, listObj)
+		// 		return
+		// 	}
+		// 	goto ops_not_found
+		// }
+		// goto device_not_found
+
+	} else {
+		// Put other find criterior here
+	}
+	goto notfound
+
+ops_not_found:
+	c.JSON(404, gin.H{
+		"message": "No operations found",
+	})
+	return
+device_not_found:
+	c.JSON(404, gin.H{
+		"message": "Device not found",
+	})
+	return
+notfound:
+	c.JSON(404, gin.H{
+		"message": "DeviceID missing from request",
+	})
+	return
+}
